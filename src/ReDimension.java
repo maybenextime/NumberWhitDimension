@@ -10,7 +10,7 @@ public class ReDimension {
     public ReDimension(String string) {
         str = string;
         String d0 = "";
-        HashMap pownumb = new HashMap();
+        HashMap<String, Integer> pownumb = new HashMap<String, Integer>();
         pownumb.put("T", 12);
         pownumb.put("G", 9);
         pownumb.put("M", 6);
