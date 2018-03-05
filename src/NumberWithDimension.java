@@ -1,24 +1,24 @@
 import java.util.Arrays;
 
-public class NumberWhitDimension {
+public class NumberWithDimension {
     private Double number;
     private String dimension;
 
-    public NumberWhitDimension(String string) {
+    public NumberWithDimension(String string) {
         String a = string.substring(string.indexOf(' ') + 1).replaceAll(" ", "");
         this.dimension = new ReDimension(a).getdim();
         if (Arrays.asList(string.split(" ")).size() == 1) this.dimension = "";
         this.number = Double.parseDouble(string.split(" ")[0]) * Math.pow(10, (int) new ReDimension(a).getpow());
     }
 
-    public NumberWhitDimension sum(NumberWhitDimension other) {
+    public NumberWithDimension sum(NumberWithDimension other) {
         if (this.dimension.equals(other.dimension)) {
             this.number = this.number + other.number;
         } else throw new NumberFormatException();
         return this;
     }
 
-    public NumberWhitDimension sub(NumberWhitDimension other) {
+    public NumberWithDimension sub(NumberWithDimension other) {
         if (this.dimension.equals(other.dimension)) {
             this.number = this.number - other.number;
             this.dimension = this.dimension;
@@ -27,7 +27,7 @@ public class NumberWhitDimension {
         return this;
     }
 
-    public NumberWhitDimension multi(NumberWhitDimension other) {
+    public NumberWithDimension multi(NumberWithDimension other) {
 
         this.dimension = this.dimension + "*" + other.dimension;
         this.number = this.number * other.number;
@@ -35,7 +35,7 @@ public class NumberWhitDimension {
         return this;
     }
 
-    public NumberWhitDimension div(NumberWhitDimension other) {
+    public NumberWithDimension div(NumberWithDimension other) {
         if (this.dimension.equals(other.dimension)) this.dimension = "";
         else
             this.dimension = this.dimension + "/" + other.dimension;
@@ -43,7 +43,7 @@ public class NumberWhitDimension {
         return this;
     }
 
-    public int compare(NumberWhitDimension other) {
+    public int compare(NumberWithDimension other) {
         if (this.dimension.equals(other.dimension)) {
             if (this.number > other.number) return 1;
             if (this.number < other.number) return -1;
@@ -54,6 +54,5 @@ public class NumberWhitDimension {
     @Override
     public String toString() {
         return this.number + " " + this.dimension;
-
     }
 }
