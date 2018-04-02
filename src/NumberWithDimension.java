@@ -1,14 +1,10 @@
-import java.util.Arrays;
-
 public class NumberWithDimension {
     private Double number;
     private String dimension;
 
     public NumberWithDimension(String string) {
-        String a = string.substring(string.indexOf(' ') + 1).replaceAll(" ", "");
-        this.dimension = new ReDimension(a).getdim();
-        if (Arrays.asList(string.split(" ")).size() == 1) this.dimension = "";
-        this.number = Double.parseDouble(string.split(" ")[0]) * Math.pow(10, (int) new ReDimension(a).getpow());
+        this.dimension = new ReDimension(string).Dimensionpart;
+        this.number = new ReDimension(string).numb;
     }
 
     public NumberWithDimension sum(NumberWithDimension other) {
@@ -42,14 +38,9 @@ public class NumberWithDimension {
         return this;
     }
 
-    public int compare(NumberWithDimension other) {
-        if (this.dimension.equals(other.dimension)) {
-            if (this.number > other.number) return 1;
-            if (this.number < other.number) return -1;
-            else return 0;
-        } else throw new NumberFormatException();
+    public int compareTo(Object o) {
+        return Double.compare(this.number, ((NumberWithDimension) o).number);
     }
-
 
     @Override
     public int hashCode() {

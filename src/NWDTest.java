@@ -21,12 +21,16 @@ public class NWDTest {
 
     @Test
     public void div() {
-        assertEquals(new NumberWithDimension("5").toString(), new NumberWithDimension("10 km").div(new NumberWithDimension("2 km")).toString());
         assertEquals(new NumberWithDimension("5 km/g/pa").toString(), new NumberWithDimension("10 km/g").div(new NumberWithDimension("2 pa")).toString());
+
+        assertEquals(new NumberWithDimension("5").toString(), new NumberWithDimension("10 km").div(new NumberWithDimension("2 km")).toString());
+
     }
 
     @Test
-    public void compare() {
-        assertEquals(1, new NumberWithDimension("10 km").compare(new NumberWithDimension("2 km")));
+    public void Compare() {
+        assertEquals(1, new NumberWithDimension("10 km")
+                .compareTo(new NumberWithDimension("2 km")));
+
     }
 }
