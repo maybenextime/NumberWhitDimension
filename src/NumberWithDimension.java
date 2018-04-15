@@ -1,46 +1,51 @@
-public class NumberWithDimension {
+import java.util.Objects;
+
+public class NumberWithDimension implements Comparable<NumberWithDimension> {
     private Double number;
     private String dimension;
 
     public NumberWithDimension(String string) {
-        this.dimension = new ReDimension(string).Dimensionpart;
-        this.number = new ReDimension(string).numb;
+        this.dimension = new ReDimension(string).GetDimension();
+        this.number = new ReDimension(string).GetNumb();
     }
 
     public NumberWithDimension sum(NumberWithDimension other) {
+        NumberWithDimension result = this;
         if (this.dimension.equals(other.dimension)) {
-            this.number = this.number + other.number;
+            result.number = this.number + other.number;
+            result.dimension = this.dimension;
         } else throw new NumberFormatException();
-        return this;
+        return result;
     }
 
     public NumberWithDimension sub(NumberWithDimension other) {
+        NumberWithDimension result = this;
         if (this.dimension.equals(other.dimension)) {
-            this.number = this.number - other.number;
+            result.number = this.number - other.number;
+            result.dimension = this.dimension;
         } else throw new NumberFormatException();
 
-        return this;
+        return result;
     }
 
     public NumberWithDimension multi(NumberWithDimension other) {
+        NumberWithDimension result = this;
+        result.number = this.number * other.number;
+        result.dimension = this.dimension + "*" + other.dimension;
 
-        this.dimension = this.dimension + "*" + other.dimension;
-        this.number = this.number * other.number;
 
-        return this;
+        return result;
     }
 
     public NumberWithDimension div(NumberWithDimension other) {
-        if (this.dimension.equals(other.dimension)) this.dimension = "";
+        NumberWithDimension result = this;
+        if (this.dimension.equals(other.dimension)) result.dimension = "";
         else
-            this.dimension = this.dimension + "/" + other.dimension;
-        this.number = this.number / other.number;
-        return this;
+            result.dimension = this.dimension + "/" + other.dimension;
+        result.number = this.number / other.number;
+        return result;
     }
 
-    public int compareTo(Object o) {
-        return Double.compare(this.number, ((NumberWithDimension) o).number);
-    }
 
     @Override
     public int hashCode() {
@@ -75,6 +80,13 @@ public class NumberWithDimension {
 
     @Override
     public String toString() {
-        return this.number + " " + this.dimension;
+        if (Objects.equals(this.dimension,"")) return String.valueOf(this.number);
+        else return this.number + " " + this.dimension;
+    }
+
+
+    @Override
+    public int compareTo(NumberWithDimension o) {
+        return 0;
     }
 }
