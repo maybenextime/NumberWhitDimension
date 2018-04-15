@@ -1,5 +1,4 @@
 import java.util.Objects;
-
 public class NumberWithDimension implements Comparable<NumberWithDimension> {
     private Double number;
     private String dimension;
@@ -9,7 +8,7 @@ public class NumberWithDimension implements Comparable<NumberWithDimension> {
         this.number = new ReDimension(string).GetNumb();
     }
 
-    public NumberWithDimension sum(NumberWithDimension other) {
+    public NumberWithDimension Sum(NumberWithDimension other) {
         NumberWithDimension result = this;
         if (this.dimension.equals(other.dimension)) {
             result.number = this.number + other.number;
@@ -18,7 +17,7 @@ public class NumberWithDimension implements Comparable<NumberWithDimension> {
         return result;
     }
 
-    public NumberWithDimension sub(NumberWithDimension other) {
+    public NumberWithDimension Sub(NumberWithDimension other) {
         NumberWithDimension result = this;
         if (this.dimension.equals(other.dimension)) {
             result.number = this.number - other.number;
@@ -28,7 +27,7 @@ public class NumberWithDimension implements Comparable<NumberWithDimension> {
         return result;
     }
 
-    public NumberWithDimension multi(NumberWithDimension other) {
+    public NumberWithDimension Multi(NumberWithDimension other) {
         NumberWithDimension result = this;
         result.number = this.number * other.number;
         result.dimension = this.dimension + "*" + other.dimension;
@@ -37,7 +36,7 @@ public class NumberWithDimension implements Comparable<NumberWithDimension> {
         return result;
     }
 
-    public NumberWithDimension div(NumberWithDimension other) {
+    public NumberWithDimension Div(NumberWithDimension other) {
         NumberWithDimension result = this;
         if (this.dimension.equals(other.dimension)) result.dimension = "";
         else
