@@ -1,48 +1,56 @@
 import java.util.Objects;
-public class NumberWithDimension implements Comparable<NumberWithDimension> {
+
+public final class NumberWithDimension implements Comparable<NumberWithDimension> {
     private Double number;
     private String dimension;
 
-    public NumberWithDimension(String string) {
+
+    NumberWithDimension(final String string) {
+        this.dimension = new ReDimension(string.split(" ")[1]).GetDimension();
+        this.number = Double.parseDouble(string.split(" ")[0]) * new ReDimension(string.split(" ")[1]).GetPow();
+    }
+
+    NumberWithDimension(final Double number, final String string) {
+        this.number = number * new ReDimension(string).GetPow();
         this.dimension = new ReDimension(string).GetDimension();
-        this.number = new ReDimension(string).GetNumb();
     }
 
-    public NumberWithDimension Sum(NumberWithDimension other) {
-        NumberWithDimension result = this;
+    NumberWithDimension Sum(NumberWithDimension other) {
+
         if (this.dimension.equals(other.dimension)) {
-            result.number = this.number + other.number;
-            result.dimension = this.dimension;
+            return new NumberWithDimension(this.number + other.number, this.dimension);
         } else throw new NumberFormatException();
-        return result;
     }
 
-    public NumberWithDimension Sub(NumberWithDimension other) {
-        NumberWithDimension result = this;
+    NumberWithDimension Sub(NumberWithDimension other) {
         if (this.dimension.equals(other.dimension)) {
-            result.number = this.number - other.number;
-            result.dimension = this.dimension;
+            return new NumberWithDimension(this.number - other.number, this.dimension);
         } else throw new NumberFormatException();
-
-        return result;
     }
 
-    public NumberWithDimension Multi(NumberWithDimension other) {
-        NumberWithDimension result = this;
-        result.number = this.number * other.number;
-        result.dimension = this.dimension + "*" + other.dimension;
-
-
-        return result;
+    NumberWithDimension Multi(NumberWithDimension other) {
+        return new NumberWithDimension(this.number * other.number, this.dimension + "*" + other.dimension);
     }
 
-    public NumberWithDimension Div(NumberWithDimension other) {
-        NumberWithDimension result = this;
-        if (this.dimension.equals(other.dimension)) result.dimension = "";
-        else
-            result.dimension = this.dimension + "/" + other.dimension;
-        result.number = this.number / other.number;
-        return result;
+    NumberWithDimension Div(NumberWithDimension other) {
+        if (this.dimension.equals(other.dimension))
+            return new NumberWithDimension(this.number / other.number, "");
+        else return new NumberWithDimension(this.number / other.number, this.dimension + "/" + other.dimension);
+    }
+
+    public int compareTo(NumberWithDimension other) {
+        if (!this.dimension.equals(other.dimension)) throw new NumberFormatException();
+        else {
+            return this.number.compareTo(other.number);
+        }
+    }
+
+    double GetNumber() {
+        return number;
+    }
+
+    String GetDim() {
+        return dimension;
     }
 
 
@@ -79,13 +87,7 @@ public class NumberWithDimension implements Comparable<NumberWithDimension> {
 
     @Override
     public String toString() {
-        if (Objects.equals(this.dimension,"")) return String.valueOf(this.number);
+        if (Objects.equals(this.dimension, "")) return String.valueOf(this.number);
         else return this.number + " " + this.dimension;
-    }
-
-
-    @Override
-    public int compareTo(NumberWithDimension o) {
-        return 0;
     }
 }

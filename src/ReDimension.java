@@ -7,7 +7,7 @@ import static java.lang.Integer.min;
 
 public class ReDimension {
     private String Dimensionpart;
-    private double Numb;
+    private double Pow;
     private String Str;
 
     private boolean DimCheck(String str, List<String> base) {
@@ -15,18 +15,12 @@ public class ReDimension {
         return false;
     }
 
-    public ReDimension(String string) {
-        if (Arrays.asList(string.split(" ")).size() == 1) {
-            Boolean Numberic = true;
-            try {
-                Numb = Double.parseDouble(Arrays.asList(string.split(" ")).get(0));
-                Dimensionpart = "";
-            } catch (NumberFormatException e) {
-                Numberic = false;
-            }
-            if (!Numberic) throw new NumberFormatException();
+    ReDimension(String string) {
+        Str = string;
+        if (string.equals("")) {
+            Pow = 1.0;
+            Dimensionpart = "";
         } else {
-            Str = string.substring(string.indexOf(' ') + 1).replaceAll(" ", "");
             HashMap<String, Integer> PowNumb = new HashMap<>();
             PowNumb.put("T", 12);
             PowNumb.put("G", 9);
@@ -47,7 +41,7 @@ public class ReDimension {
 
             StringBuilder s = new StringBuilder("*" + Str);
             int i = 0;
-            int j ;
+            int j;
             while (i < s.length()) {
                 if (s.indexOf("*", i + 1) == -1 || s.indexOf("/", i + 1) == -1)
                     j = max(s.indexOf("*", i + 1), s.indexOf("/", i + 1));
@@ -67,16 +61,17 @@ public class ReDimension {
                 i = j;
 
             }
-            Numb = Double.parseDouble(string.split(" ")[0]) * Math.pow(10, (count1 - count2));
+            Pow = Math.pow(10, (count1 - count2));
             Dimensionpart = s.substring(1);
         }
     }
 
-    public Double GetNumb() {
-        return Numb;
+
+    Double GetPow() {
+        return Pow;
     }
 
-    public String GetDimension() {
+    String GetDimension() {
         return Dimensionpart;
     }
 
@@ -86,7 +81,7 @@ public class ReDimension {
         int result = 1;
         result = prime * result + ((Dimensionpart == null) ? 0 : Dimensionpart.hashCode());
         long temp;
-        temp = Double.doubleToLongBits(Numb);
+        temp = Double.doubleToLongBits(Pow);
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + ((Str == null) ? 0 : Str.hashCode());
         return result;
@@ -106,7 +101,7 @@ public class ReDimension {
                 return false;
         } else if (!Dimensionpart.equals(other.Dimensionpart))
             return false;
-        if (Double.doubleToLongBits(Numb) != Double.doubleToLongBits(other.Numb))
+        if (Double.doubleToLongBits(Pow) != Double.doubleToLongBits(other.Pow))
             return false;
         if (Str == null) {
             if (other.Str != null)
